@@ -4,19 +4,28 @@ class Solution {
         int m = text1.length();
         int n = text2.length();
 
-        int[][] dp = new int[m+1][n+1];
+        int[] dp = new int[n+1];
 
         for (int i = m - 1; i >= 0; i--) {
+
+            int diagonal = 0;
+
             for (int j = n - 1; j >= 0; j--) {
+
+                int temp = dp[j];
+
                 if (text1.charAt(i) == text2.charAt(j)) {
-                    dp[i][j] = 1 + dp[i+1][j+1];
+                    dp[j] = 1 + diagonal;
                 }else{
-                    dp[i][j] = Math.max(dp[i+1][j], dp[i][j+1]);
+                    dp[j] = Math.max(dp[j], dp[j+1]);    
                 }
+
+                diagonal = temp;
+
             }
         }
 
-        return dp[0][0];
+        return dp[0];
 
     }
 
